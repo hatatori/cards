@@ -10,7 +10,7 @@
 	}
 
 	body{
-		/* overflow: hidden; */
+		overflow: hidden;
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		background-color: #03a9f4;
 		padding:0px;
@@ -113,6 +113,7 @@
 		align-items: center;
 		padding:10px;
 		box-sizing: border-box;
+		opacity: 0;
 	}
 	.showhide > div{height: 100%;}
 
@@ -175,8 +176,8 @@
 	}
 
 	function setarTamanho(){
-		w = cont.offsetWidth-20
-		h = cont.offsetHeight-20
+		w = cont.offsetWidth+20
+		h = cont.offsetHeight
 		
 		cont.style.height = 0;
 		cont.style.padding = 0;
@@ -195,9 +196,8 @@
 	}
 
 	function aparece(){
-		cont.style.width = w
+		cont.style.width = w+10
 		cont.style.height = h
-		// cont.classList.remove('zb')
 		setTimeout(()=>{
 			cont.style.padding = 10
 		},100)
