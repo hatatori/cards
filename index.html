@@ -120,8 +120,11 @@
 	.showhide:hover{opacity: 1;transition: 0.3s;}
 	.showhide img{height: 20px;vertical-align: middle;}
 
-
+	#sa{white-space: nowrap;}
 	
+	/* .fade-out {opacity: 0;} */
+	.fade-out > *{opacity: 0; transform:translateY(20px)}
+
 </style>
 <div class="showhide">
 
@@ -147,19 +150,20 @@
 <div class="centrao">
 
 	<div id='cont' class="container volta">
-
+		
 		<div class="efeito d1 b" id="a"></div>
 		<div class="efeito d2 g" id="b"></div>
 		<div class="efeito d3 r" id="c"></div>
-		
 
 		<div class="m5" id="ba">
 			<img id="capa" src="twitch.jpg">
 		</div>
+
 		<div class="m5" id="bb">
-			<div id="sa">@test</div>
+			<div id="sa">@akirakss</div>
 			<small id="sm">twitch</small>
 		</div>
+
 	</div>
 
 </div>
@@ -176,8 +180,8 @@
 	}
 
 	function setarTamanho(){
-		w = cont.offsetWidth+20
-		h = cont.offsetHeight
+		
+		adjustScreen()
 		
 		cont.style.height = 0;
 		cont.style.padding = 0;
@@ -188,32 +192,40 @@
 
 	function some(){
 		cont.style.width = w
+		cont.style.height = 0
 		setTimeout(()=>{
-			cont.style.height = 0
+			// cont.style.height = 0
 			// cont.style.width = 0
-			cont.style.padding = 0
+			// cont.style.padding = 0
 		},100)
 	}
 
 	function aparece(){
-		cont.style.width = w+10
+		cont.style.width = w
 		cont.style.height = h
-		setTimeout(()=>{
-			cont.style.padding = 10
-		},100)
+		// setTimeout(()=>{
+			// cont.style.padding = 5
+		// },100)
+	}
+	
+	function adjustScreen(){
+		cont.removeAttribute('style')
+		w = cont.offsetWidth
+		h = cont.offsetHeight
 	}
 
 	function textShow(){
-		ba.style.opacity = 1
-		bb.style.opacity = 1
+		ba.removeAttribute('style')
+		bb.removeAttribute('style')
 	}
+
 	function textHide(){
 		ba.style.opacity = 0
 		bb.style.opacity = 0
 	}
 
 	function circulo(){
-		go()
+		// go()
 		textHide()
 		cont.style.width = 50
 		cont.style.height = 50
@@ -230,11 +242,9 @@
 		efeitovai()
 		setTimeout(textHide,700)
 		setTimeout(some,500)
-		// some()
-		// setTimeout(efeitovai,1000)
-		// textHide()
-		// aparece()
 	}
+
+	entrada()
 
 	for(i of document.querySelectorAll('img')){
 		i.onclick=function(e){
@@ -244,19 +254,16 @@
 	}
 
 	inp_nome.onkeyup=function(){
+		adjustScreen()
 		sa.innerHTML = this.value
-		cont.style.removeProperty('width')
-		w = cont.offsetWidth-20
-		// cont.removeAttribute('style')
-		// setarTamanho()
 	}
 
 	window.onkeyup=function(e){
-		if(e.key == "1") {
-			entrada();
-		}
-		if(e.key == "2") {
-			saida();
+		if(e.key == "1") entrada();
+		if(e.key == "2") saida();
+		if(e.key == "3") {
+			cont.classList.add('fade-out')
+			setTimeout(()=>{circulo()},500)
 		}
 	}
 </script>
