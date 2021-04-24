@@ -1,0 +1,262 @@
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cairo&display=swap');
+
+	*{
+		transition:1s;
+		/* font-family: 'Cairo', sans-serif; */
+		/* letter-spacing: 5px; */
+		/* line-height: 20px; */
+	}
+
+	body{
+		/* overflow: hidden; */
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		background-color: #03a9f4;
+		padding:0px;
+		margin:0px;
+	}
+	/*vermelho = #e74c3c*/
+	/*azul = #3498db */
+
+	.centrao{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	
+
+	.container{
+		box-shadow: 0px 0px 3px #00000055;
+		background-color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding:5px;
+		position: relative;
+		border-radius: 4px;
+		overflow: hidden;
+		/* transform: scale(1.5) */
+	}
+
+	.m5{margin:5px;}
+
+	.container small{color: #9c9c9c;}
+
+	.efeito{
+		width: 0%;
+		height: 100%;
+		background-color: red;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+	}
+
+	.on{animation: on 1s forwards}
+	.off{animation: off 1s forwards;}
+
+	
+
+	.vai > .efeito{animation: on 1s forwards}
+	.vai > .d1{animation-delay: 0.0s;}
+	.vai > .d2{animation-delay: 0.1s;}
+	.vai > .d3{animation-delay: 0.2s;}
+
+	.volta > .efeito{width:100%;animation: off 1s forwards;left:auto;right: 0;}
+	.volta > .d1{animation-delay: 0.2s;}
+	.volta > .d2{animation-delay: 0.1s;}
+	.volta > .d3{animation-delay: 0.0s;}
+
+
+	@keyframes rota{
+		0%{transform: rotate(0deg)}
+		100%{transform: rotate(45deg)}
+	}
+
+	@keyframes rotb{
+		0%{transform: rotate(45deg)}
+		100%{transform: rotate(0deg)}
+	}
+
+	@keyframes on{
+		0%{width: 0%;}
+		100%{width: 100%;}
+	}
+
+	@keyframes off{
+		0%{width: 100%;}
+		100%{width: 0%;}
+	}
+
+	.r{background-color: #c0392b;}
+	.g{background-color: #27ae60;}
+	.b{background-color: #2980b9;}
+
+	
+
+	img{
+		height: 38px;
+		border-radius: 3px;
+	}
+
+
+	.showhide{
+		opacity: 10;
+		position: absolute;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding:10px;
+		box-sizing: border-box;
+	}
+	.showhide > div{height: 100%;}
+
+	.showhide:hover{opacity: 1;transition: 0.3s;}
+	.showhide img{height: 20px;vertical-align: middle;}
+
+
+	
+</style>
+<div class="showhide">
+
+	<div>
+		<input id="inp_nome">
+	</div>
+
+	<div>
+		<img src='twitch.jpg' val="twitch">
+		<img src='instagram.jpg' val="instagram">
+		<img src='twitter.jpg' val="twitter">
+		<img src='discord.jpg' val="discord">
+		<img src='youtube.jpg' val="youtube">
+	</div>
+
+	<div>
+		<button onclick="entrada()">entrada</button>
+		<button onclick="saida()">saida</button>
+	</div>
+
+</div>
+
+<div class="centrao">
+
+	<div id='cont' class="container volta">
+
+		<div class="efeito d1 b" id="a"></div>
+		<div class="efeito d2 g" id="b"></div>
+		<div class="efeito d3 r" id="c"></div>
+		
+
+		<div class="m5" id="ba">
+			<img id="capa" src="twitch.jpg">
+		</div>
+		<div class="m5" id="bb">
+			<div id="sa">@test</div>
+			<small id="sm">twitch</small>
+		</div>
+	</div>
+
+</div>
+
+<script>
+	function go(){
+		cont.classList.toggle('vai')
+		cont.classList.toggle('volta')
+	}
+
+	function efeitovai(){
+		go()
+		setTimeout(go,1200)
+	}
+
+	function setarTamanho(){
+		w = cont.offsetWidth-20
+		h = cont.offsetHeight-20
+		
+		cont.style.height = 0;
+		cont.style.padding = 0;
+
+		textHide()
+
+	}setarTamanho()
+
+	function some(){
+		cont.style.width = w
+		setTimeout(()=>{
+			cont.style.height = 0
+			// cont.style.width = 0
+			cont.style.padding = 0
+		},100)
+	}
+
+	function aparece(){
+		cont.style.width = w
+		cont.style.height = h
+		// cont.classList.remove('zb')
+		setTimeout(()=>{
+			cont.style.padding = 10
+		},100)
+	}
+
+	function textShow(){
+		ba.style.opacity = 1
+		bb.style.opacity = 1
+	}
+	function textHide(){
+		ba.style.opacity = 0
+		bb.style.opacity = 0
+	}
+
+	function circulo(){
+		go()
+		textHide()
+		cont.style.width = 50
+		cont.style.height = 50
+		cont.style.borderRadius="100%"
+	}
+
+	function entrada(){
+		aparece()
+		setTimeout(efeitovai,300)
+		setTimeout(textShow,1000)
+	}
+
+	function saida(){
+		efeitovai()
+		setTimeout(textHide,700)
+		setTimeout(some,500)
+		// some()
+		// setTimeout(efeitovai,1000)
+		// textHide()
+		// aparece()
+	}
+
+	for(i of document.querySelectorAll('img')){
+		i.onclick=function(e){
+			capa.src = this.getAttribute('val')+".jpg"
+			sm.innerHTML = this.getAttribute('val')
+		}
+	}
+
+	inp_nome.onkeyup=function(){
+		sa.innerHTML = this.value
+		cont.style.removeProperty('width')
+		w = cont.offsetWidth-20
+		// cont.removeAttribute('style')
+		// setarTamanho()
+	}
+
+	window.onkeyup=function(e){
+		if(e.key == "1") {
+			entrada();
+		}
+		if(e.key == "2") {
+			saida();
+		}
+	}
+</script>
